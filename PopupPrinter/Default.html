@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="script/jquery-2.0.3.js"></script>
+    <script src="script/jquery-2.0.3.min.js"></script>
+    <style type="text/css">
+        body{
+            width:800px;
+            height:600px;
+        }
+        input, input:focus, textarea, textarea:focus {
+            border: none;
+            font-family: Calibri;
+            font-size: 16px;
+            padding: 1px;
+            text-align: center;
+        }
+
+        .head {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            font-family: Calibri;
+            font-weight:bold;
+        }
+
+        .day, .days, .month {
+            width: 25px;
+        }
+
+        .year {
+            width: 17px;
+        }
+
+        .address, .phone {
+            width: 250px;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 550px;
+            height: 410px;
+            display: block;
+            /* padding-left: 20px; */
+        }
+        .bg {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            display: block;
+            position: static;
+            z-index: -1;
+        }
+
+        .printForm {
+            position: relative;
+            top: -440px;
+            z-index: 1;
+        }
+        .title{
+            padding-bottom:20px;
+        }
+        @-moz-document url-prefix() {
+            .bg {
+                width: 800px;
+                height: 600px;
+                margin: 0 auto;
+                display: block;
+                position: static;
+                z-index: -1;
+            }
+
+            .printForm {
+                position: relative;
+                top: -440px;
+                z-index: 1;
+            }
+            .title{
+                padding:20px;
+            }
+        }
+
+        .print {
+            width: 300px;
+            margin: 0 auto;
+            display: none;
+            cursor: pointer;
+        }
+
+        .button {
+            position: relative;
+            top: 50px;
+        }
+
+        .show {
+            display: block !important;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        .active {
+            display: block !important;
+        }
+
+        .lastBanner {
+            display: none;
+            width: 740px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+            .lastBanner img {
+                display: block;
+            }
+
+        .title-address {
+            width: 100px;
+            float: left;
+        }
+
+        .address {
+            margin-top: 16px;
+            text-align: left !important;
+            padding: 2px;
+        }
+
+        .form {
+            /* padding: 10px; */
+            margin-left: 20px;
+        }
+
+        .phone {
+            padding: 5px;
+            margin-left: 5px;
+            text-align: left;
+        }.printInfo{
+             padding-top:20px;
+         }
+    </style>
+    <script>
+        var oldValue = '';
+        $(document).ready(function () {
+
+            $('input').click(function () {
+                oldValue = $(this).val();
+                $(this).val('');
+            });
+
+            $('input').blur(function () {
+                var newValue = $(this).val();
+                if (oldValue == newValue || newValue == '') {
+                    $(this).val(oldValue);
+                }
+            });
+            setInterval(swapImages, 1000);
+
+            function swapImages() {
+                if ($('.blue').hasClass('active')) {
+                    $('.blue').removeClass('active');
+                    $('.green').addClass('active');
+                } else {
+                    $('.blue').addClass('active');
+                    $('.green').removeClass('active');
+                }
+            }
+
+            $('.print').click(function () {
+                $('.button').addClass('hide');
+                $('.bg').addClass('hide');
+                $('.container').removeClass('printForm');
+                $('.printInfo').removeClass('hide');
+                //var w = window.open(location.href);
+
+                //w.print()
+                window.print();
+                $('.button').remove();
+                $('.bg').remove();
+                $('.container').remove();
+                $('.lastBanner').addClass('show');
+            });
+        });
+    </script>
+</head>
+<body>
+    <img src="image/bg2.png" class="bg" />
+    <div class="container printForm">
+        <p class="head">SENELİK İZİN FORMU</p>
+        <p style="text-align:center;" class="title"><strong>İNSAN KAYNAKLARI DEPARTMANINA,</strong></p>
+        <div class="form">
+            <p>Senelik &nbsp; iznimden; &nbsp;  <input class="day" onclick="clear();" type="text" maxlength="2" value="......" />/<input type="text" maxlength="2" class="month" value="......" />/ 20<input type="text" class="year" maxlength="2" value="..." />&nbsp; ve &nbsp; &nbsp;<input type="text" class="day" maxlength="2" value="......" />/<input type="text" class="month" maxlength="2" value="......" />/ 20<input type="text" class="year" maxlength="2" value="..." /> &nbsp;  tarihlerinde<br />
+            <input type="text" class="days" maxlength="2" value="......" /> iş günü olarak kullanmak istiyorum. </p>
+            <p>İş başı yapacağım tarih <input type="text" class="day" maxlength="2" value="......" />/<input type="text" class="month" maxlength="2" value="......" />/ 20<input type="text" class="year" maxlength="2" value="..." /></p>
+            <div class="printInfo hide">
+                <p>İşlerimle &nbsp; ilgili &nbsp; herhangi &nbsp; bir &nbsp; sıkıntı &nbsp; olduğunda &nbsp; izinde &nbsp; bulunacağım</p>
+                <p>adres ve telefon aşağıdadır.</p><br /><br />
+
+                <p class="title-address">ADRES  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  :</p> &nbsp; <textarea class="address"></textarea><br />
+                <p>TELEFON &nbsp; &nbsp; &nbsp; &nbsp;: &nbsp; <input type="tel" class="phone" /></p><br />
+                <p>Saygılarımla,</p>
+                <div>
+                    <p style="float:left;">Adı Soyadı /İmza</p><p style="float:right;">Yönetim Onayı</p>
+                </div>
+            </div>
+        </div>
+        <div class="button">
+            <img src="image/button_cikis_al.png" class="print blue active" />
+            <img src="image/button_izin_al.png" class="print green" />
+        </div>
+    </div>
+    <div class="lastBanner">
+        <img src="image/last_bannerV3.jpg" />
+    </div>
+</body>
+</html>
